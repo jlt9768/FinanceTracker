@@ -1,0 +1,445 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: seashell;
+}
+
+#logo {
+    height: 45px;
+    width: 45;
+    padding-top: 5px;
+    float:left;
+    border-radius: 8px;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    background-color: seagreen;
+    border-bottom: 2px solid #126537;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    z-index: 100;
+}
+
+nav:nth-child(1) {
+    padding-left: 25px;
+}
+
+.navlink {
+    padding: 5px;
+    margin-top: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: white;
+    font-size: 1.3em;
+    float: right;
+}
+
+.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    background-color: seagreen;
+    transition: background-color 0.4s ease;
+}
+
+.navlink a:hover {
+    transition: background-color 0.8s ease;
+    background-color: #55B17E;
+}
+
+#makeFinance{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 50px;
+    z-index: 100;
+}
+
+.financeForm {
+    border-right: 2px solid #126537;
+    border-left: 2px solid #126537;
+    border-bottom: 2px solid #126537;
+    height: 55px;
+    width: 90%;
+    margin-top:0px;
+    padding-top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: seagreen;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    
+    
+}
+
+.financeForm label {
+    display: inline-block;
+    width: 55px;
+    margin-left: 10px;
+    font-size: 1.2em;
+    float: left;
+    color: white;
+}
+
+.financeForm select {
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+}
+
+.financeForm input[type=text] {
+    float:left;
+}
+
+.makeFinanceSubmit {
+    transition: background-color 0.4s ease;
+    display: inline;
+    width: 110px;
+    background-color: seagreen;
+    
+    color: white;
+    text-decoration: none;
+}
+
+.makeFinanceSubmit:link, .makeFinanceSubmit:visited, .makeFinanceSubmit:hover, .makeFinanceSubmit:active {
+    color: white;
+}
+
+.makeFinanceSubmit:hover {
+    transition: background-color 0.4s ease;
+    background-color: #126537;
+}
+
+.mainForm {
+    height: 300px;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    font-size: 1.2em;
+    padding-left: 30px;
+}
+
+.mainForm h3 {
+    text-align: center;
+}
+
+.mainForm label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 1.2em;
+}
+
+.formSubmit {
+    transition: background-color 0.4s ease;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 14px;
+    font-size: 1.2em;
+    width: 100px;
+    background-color: seagreen;
+    border-radius: 2px;
+    border-color: seagreen;
+    padding: 3px 0px;
+    color: white;
+    text-decoration: none;
+    
+}
+
+.formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active {
+    color: white;
+}
+
+.formSubmit:hover {
+    transition: background-color 0.4s ease;
+    background-color: #126537;
+}
+
+#email, #user, #pass, #pass2 {
+    text-align: center;
+    font-size: 1.1em;
+    width: 180px;
+    border-radius: 6px;
+}
+
+#email:focus,#user:focus, #pass:focus, #pass2:focus {
+    outline: none;
+    box-shadow: 0px 0px 1px 1px #55acee;
+}
+
+#movingMessage {
+    display:none;
+    top: 5px;
+    width: 550px;
+    height: 40px;
+    position: absolute;
+    z-index: 200;
+    right: 40%;
+    white-space: nowrap;
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+    opacity: .8;
+}
+
+#movingMessage h3 {
+    width: 500px;
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    text-align: center;
+
+}
+
+
+#errorMessage {
+    font-size: 1em;
+    font-weight: bold;
+    color: red;
+    font-style: italic;
+    text-align: center;
+
+}
+
+#finance {
+    z-index: 225;
+    margin-top: -20px;
+    margin-left: 135px;
+    height: 450px;
+    width: 300px;
+    -ms-transform: rotate(330deg);
+    -webkit-transform: rotate(330deg); 
+    transform: rotate(330deg);
+}
+
+#finances {
+    width: 80%;
+    min-width: 400px;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+}
+
+#amount {
+    width: 80px;
+}
+#financeType{
+    margin-right: 18px;
+    margin-top: 3px;
+}
+
+.finance {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    background-color: #D7AB88;
+    padding: 10px;
+    min-height:60px;
+    overflow: hidden;
+}
+
+.finance:hover {
+    transition: border-color 0.2s ease-out;
+    border-color: rgba(255,255,255, 0.8);
+    transition: background-color 2.6s ease-out;
+    background-color: #FEDFC6;
+}
+
+h3.emptyFinance {
+    width: 400px;
+    font-size: 1.5em;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 18px;
+}
+
+h3.financeDate {
+    float:left;
+    width: 45%;
+    font-weight: bold;
+    padding-right: 40px;
+    font-size: 1.5em;
+}
+
+h3.financeItem {
+    float:left;
+    text-align: left;
+    width: 45%;
+    
+    padding-right: 40px;
+    font-size: 1.5em;
+}
+h3.financeType{
+    float:left;
+    text-align: left;
+    width: 45%;
+    
+    padding-right: 40px;
+    font-size: 1.5em;
+}
+h3.financeAmount{
+    float:left;
+    text-align: left;
+    width: 45%;
+    
+    padding-right: 40px;
+    font-size: 1.5em;
+}
+.finance:first-child {
+    margin-top: 10px;
+}
+
+.finance:last-child {
+    margin-bottom:10px;
+}
+
+#filter{
+    width: 80%;
+    min-width: 300px;
+    margin: 0 auto;
+    margin-top: 40px;
+    background-color: white;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    padding:5px;
+    padding-top:10px;
+}
+#filterType{
+    margin-right:35px;   
+}
+
+#financeDateInput{
+    margin-right:25px;
+}
+
+#reactFilter label{
+    margin-right:15px;
+}
+
+
+#overScreen{
+    position: absolute;
+    left:40%;
+    top:40%;
+    z-index: 3;
+    width: 25%;
+    background-color: seagreen;
+    padding: 20px;
+    border-radius: 15px;
+    border: 4px solid #126537;
+}
+#overScreen input{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+    
+}
+#overScreen #username, #password, #newPassword, #newPassword2{
+    float: right;
+    margin:auto;
+}
+
+.makeChangeSubmit{
+   margin-top:20px;
+    
+}
+
+#exitButton{
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#blocker{
+    position:absolute;
+    width: 100%;
+    height:100%;
+    background-color: black;
+    opacity: .7;
+    z-index: 2;
+}
+#mainLogo{
+    
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 100px;
+
+}
+#content{
+    background-color:#FEDFC6;
+    height: 300px;
+    width: 350px;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+    border-radius: 25px;
+    border: 2px solid #B17E55;
+}
+#titleLabel{
+    margin-top: 30px;
+    margin-left: 6.5vw;
+}
+#barTotal, #barOther, #barMonthly, #barFood, #barClothing{
+    height: 70px;
+    background-color: blue;
+    margin-bottom: 15px;
+    color: white;
+
+    width: 100%;
+    white-space: nowrap;
+    text-indent: 15px;
+    padding-top: 25px;
+}
+
+.col-md-5{
+    padding-top: 80px;
+    padding-right: 50px;
+    padding-left: 20px;
+    
+}
+
+#barPanel{
+    background-color: #D7AB88;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    padding:10px;
+}
+
+#upgradeButton{
+    display: none;
+}
+#upgradeSubmit{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#upgradeSubmit a{
+    text-decoration: none;
+    color: black;
+}
+#sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 250px;
+    margin-top: 50px;
+}
+#sticky h2{
+    margin-bottom: 20px;
+}

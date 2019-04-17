@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Finance Tracker</title>
+  <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+  <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
+  <link rel="shortcut icon" href="/assets/img/favicon2.png"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+</head>
+<body>
+  <section id="overScreen">
+      
+  </section>
+  <section id="blocker">
+  </section>
+    
+  <!-- Icon obtained from: https://www.flaticon.com/free-icon/piggy-bank_584093#term=money&page=1&position=13 -->
+  <nav><a href="/login"><img id="logo" src="/assets/img/financeicon.png" alt="face logo"/></a>
+    <div class="navlink"><a href="/logout">Log out</a></div>
+    <div class="navlink" id ="upgradeButton"><a href="/">Upgrade</a></div>
+    <div class="navlink" id="changeButton"><a href="/changePass">Change Password</a></div>
+  </nav>
+    
+  <section id="makeFinance">
+  </section>
+    <div class ="row">
+        <div class ="col-md-7" id="#financePanel">
+          
+              <section id="filter">  
+              </section>
+              <h2 id="titleLabel">Finances:</h2>
+              <section id="finances">
+              </section>
+        </div>
+        <div class="col-md-5" id="graph">
+          
+        </div>
+    </div>
+  <div id="movingMessage">
+    <h3><span id="errorMessage"></span></h3>
+  </div>
+  <script src="/assets/bundle.js"></script>
+</body>
+</html>
