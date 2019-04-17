@@ -20,10 +20,19 @@ const requiresSecure = (req, res, next) => {
   return next();
 };
 
+
+const requiresGroup = (req,res,next) => {
+    console.dir(req.session.account.group);
+  if (!req.session.account.group) {
+    return res.redirect('/groups');
+  }
+  return next();
+};
 const bypassSecure = (req, res, next) => { next(); };
 
 module.exports.requiresLogin = requiresLogin;
 module.exports.requiresLogout = requiresLogout;
+module.exports.requiresGroup = requiresGroup;
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.requiresSecure = requiresSecure;
