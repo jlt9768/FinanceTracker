@@ -16,7 +16,6 @@ const GroupSchema = new mongoose.Schema({
   name: {
     type: String,
     requried: true,
-    unique: true,
   },
   createdData: {
     type: Date,

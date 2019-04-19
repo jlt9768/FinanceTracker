@@ -4,7 +4,8 @@ const Finance = models.Finance;
 
 // Render the finance page of the session user
 const financePage = (req, res) => {
-  Finance.FinanceModel.findByOwner(req.session.account._id, (err, docs) => {
+    console.log("FINANCE PAGE");
+  Finance.FinanceModel.findByOwner(req.session.account._id, req.session.account.group, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
@@ -22,9 +23,10 @@ const makeFinance = (req, res) => {
   const financeData = {
     date: req.body.date,
     item: req.body.item,
-    owner: req.session.account.group,
+    owner: req.session.account._id,
     type: req.body.type,
     amount: req.body.amount,
+    group: req.session.account.group,
   };
 
   const newFinance = new Finance.FinanceModel(financeData);
@@ -49,7 +51,7 @@ const getFinances = (request, response) => {
   const req = request;
   const res = response;
 
-  return Finance.FinanceModel.findByOwner(req.session.account.group, (err, docs) => {
+  return Finance.FinanceModel.findByOwner(req.session.account._id, req.session.account.group, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });

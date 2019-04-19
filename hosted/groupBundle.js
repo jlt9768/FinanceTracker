@@ -6,6 +6,7 @@ var handleChoice = function handleChoice(e) {
     console.log(e.currentTarget.id);
 
     sendAjax('POST', '/setGroup', $("#" + e.currentTarget.id).serialize(), function () {
+        //window.location = '/finance';
         window.location = '/finance';
     });
 

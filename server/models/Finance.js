@@ -4,7 +4,7 @@ mongoose.Promise = global.Promise;
 
 let FinanceModel = {};
 
-// const convertId = mongoose.Types.ObjectId;
+const convertId = mongoose.Types.ObjectId;
 // const setName = (name) => _.escape(name).trim();
 
 const FinanceSchema = new mongoose.Schema({
@@ -13,15 +13,17 @@ const FinanceSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-
+  group: {
+    type: String,
+    required:true,
+  },
   item: {
     type: String,
     required: true,
     trim: true,
   },
-
   owner: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
     ref: 'Account',
   },
@@ -48,13 +50,11 @@ FinanceSchema.statics.toAPI = (doc) => ({
   amount: doc.amount,
 });
 
-FinanceSchema.statics.findByOwner = (ownerId, callback) => {
-  // const search = {
-  //  owner: convertId(ownerId),
-  // };
-  const search = {
-    owner: ownerId,
-  };
+FinanceSchema.statics.findByOwner = (ownerId,groupId, callback) => {
+   const search = {
+    owner: convertId(ownerId),
+    group: groupId,
+   };
   return FinanceModel.find(search).select('date item type amount').exec(callback);
 };
 
