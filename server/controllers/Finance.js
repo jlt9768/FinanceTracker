@@ -22,7 +22,7 @@ const makeFinance = (req, res) => {
   const financeData = {
     date: req.body.date,
     item: req.body.item,
-    owner: req.session.account._id,
+    owner: req.session.account.group,
     type: req.body.type,
     amount: req.body.amount,
   };
@@ -49,7 +49,7 @@ const getFinances = (request, response) => {
   const req = request;
   const res = response;
 
-  return Finance.FinanceModel.findByOwner(req.session.account._id, (err, docs) => {
+  return Finance.FinanceModel.findByOwner(req.session.account.group, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });

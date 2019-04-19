@@ -55,6 +55,17 @@ const getGroups = (request, response) => {
   });
 };
 
+const setGroup = (request, response) => {
+  const req = request;
+  const res = response;
+
+
+  req.session.account.group = req.body.name;
+
+  return res.json({ redirect: '/finance' });
+};
+
+module.exports.setGroup = setGroup;
 module.exports.groupPage = groupPage;
 module.exports.getGroups = getGroups;
 module.exports.make = makeGroup;

@@ -21,8 +21,8 @@ const requiresSecure = (req, res, next) => {
 };
 
 
-const requiresGroup = (req,res,next) => {
-    console.dir(req.session.account.group);
+const requiresGroup = (req, res, next) => {
+  // console.dir(req.session.account.group);
   if (!req.session.account.group) {
     return res.redirect('/groups');
   }

@@ -14,9 +14,11 @@ const router = (app) => {
   app.post('/upgrade', mid.requiresLogin, controllers.Account.upgrade);
   app.post('/changePass', mid.requiresSecure, mid.requiresLogin,
           controllers.Account.changePass);
+
   app.get('/groups', mid.requiresSecure, mid.requiresLogin, controllers.Group.groupPage);
   app.post('/groups', mid.requiresSecure, mid.requiresLogin, controllers.Group.make);
   app.get('/getGroups', mid.requiresSecure, mid.requiresLogin, controllers.Group.getGroups);
+  app.post('/setGroup', mid.requiresSecure, mid.requiresLogin, controllers.Group.setGroup);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 
