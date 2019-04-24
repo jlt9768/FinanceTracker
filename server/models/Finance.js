@@ -15,7 +15,7 @@ const FinanceSchema = new mongoose.Schema({
   },
   group: {
     type: String,
-    required:true,
+    required: true,
   },
   item: {
     type: String,
@@ -50,11 +50,11 @@ FinanceSchema.statics.toAPI = (doc) => ({
   amount: doc.amount,
 });
 
-FinanceSchema.statics.findByOwner = (ownerId,groupId, callback) => {
-   const search = {
+FinanceSchema.statics.findByOwner = (ownerId, groupId, callback) => {
+  const search = {
     owner: convertId(ownerId),
     group: groupId,
-   };
+  };
   return FinanceModel.find(search).select('date item type amount').exec(callback);
 };
 

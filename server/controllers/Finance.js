@@ -4,14 +4,15 @@ const Finance = models.Finance;
 
 // Render the finance page of the session user
 const financePage = (req, res) => {
-    console.log("FINANCE PAGE");
-  Finance.FinanceModel.findByOwner(req.session.account._id, req.session.account.group, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-    return res.render('app', { csrfToken: req.csrfToken(), finances: docs });
-  });
+  console.log('FINANCE PAGE');
+  Finance.FinanceModel.findByOwner(req.session.account._id,
+    req.session.account.group, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occured' });
+      }
+      return res.render('app', { csrfToken: req.csrfToken(), finances: docs });
+    });
 };
 
 // Create a new Finance based on the data that was submitted
@@ -51,13 +52,14 @@ const getFinances = (request, response) => {
   const req = request;
   const res = response;
 
-  return Finance.FinanceModel.findByOwner(req.session.account._id, req.session.account.group, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-    return res.json({ finances: docs });
-  });
+  return Finance.FinanceModel.findByOwner(req.session.account._id,
+    req.session.account.group, (err, docs) => {
+      if (err) {
+        console.log(err);
+        return res.status(400).json({ error: 'An error occured' });
+      }
+      return res.json({ finances: docs });
+    });
 };
 
 module.exports.financePage = financePage;
