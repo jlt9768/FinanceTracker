@@ -1,3 +1,41 @@
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(() => {
+   drawChart(0,1,1,1,1)});
+
+
+// Draw the chart and set the chart values
+function drawChart(total, other, monthly, food, clothing) {
+    if(total !== 0){
+        let data = google.visualization.arrayToDataTable([
+            ['Type', 'Cost'],
+            ['Other', other],
+            ['Monthly', monthly],
+            ['Food', food],
+            ['Clothing', clothing]
+        ]);
+        
+        // Optional; add a title and set the width and height of the chart
+        let options = {'title':'Total Spent: $' + total.toFixed(2), 'width':650, 'height':500, 'backgroundColor': 'seashell'};
+        
+        // Display the chart inside the <div> element with id="piechart"
+        let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }else{
+        let data = google.visualization.arrayToDataTable([
+            ['Type', 'Cost'],
+            ['None', 1],
+        ]);
+        
+        // Optional; add a title and set the width and height of the chart
+        let options = {'title':'Total Spent: $0', 'width':650, 'height':500, 'backgroundColor': 'seashell'};
+        
+        // Display the chart inside the <div> element with id="piechart"
+        let chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    }
+    
+}
+
 //Change wether or not the over screen is displayed
 const hideOverScreen = (state) => {
     if(state){
@@ -83,34 +121,35 @@ const handleUpgrade = (e) => {
 
 //Update the finances graph based on any data that comes in
 const handleGraph= (total, other, monthly, food, clothing) => {
-    let totalBar = document.querySelector("#barTotal");
-    let otherBar = document.querySelector("#barOther");
-    let monthlyBar = document.querySelector("#barMonthly");
-    let foodBar = document.querySelector("#barFood");
-    let clothingBar = document.querySelector("#barClothing");
-    
-    
-    totalBar.innerHTML = "Total: $" + total.toFixed(2);
-    otherBar.innerHTML = "Other: $" + other.toFixed(2);
-    monthlyBar.innerHTML = "Monthly: $" + monthly.toFixed(2);
-    foodBar.innerHTML = "Food: $" + food.toFixed(2);
-    clothingBar.innerHTML = "Clothing: $" + clothing.toFixed(2);
-    
-    if(total !== 0){
-        totalBar.style.width = '100%';
-        otherBar.style.width = '' + other/total * 100+ '%';
-        monthlyBar.style.width = '' + monthly/total * 100+ '%';
-        foodBar.style.width = '' + food/total * 100+ '%';
-        clothingBar.style.width = '' + clothing/total * 100+ '%';
-    }else{
-        totalBar.style.width = '0%';
-        otherBar.style.width = '0%';
-        monthlyBar.style.width = '0%';
-        foodBar.style.width = '0%';
-        clothingBar.style.width = '0%';
-    }
-    
-    
+    //let totalBar = document.querySelector("#barTotal");
+    //let otherBar = document.querySelector("#barOther");
+    //let monthlyBar = document.querySelector("#barMonthly");
+    //let foodBar = document.querySelector("#barFood");
+    //let clothingBar = document.querySelector("#barClothing");
+    //
+    //
+    //totalBar.innerHTML = "Total: $" + total.toFixed(2);
+    //otherBar.innerHTML = "Other: $" + other.toFixed(2);
+    //monthlyBar.innerHTML = "Monthly: $" + monthly.toFixed(2);
+    //foodBar.innerHTML = "Food: $" + food.toFixed(2);
+    //clothingBar.innerHTML = "Clothing: $" + clothing.toFixed(2);
+    //
+    //if(total !== 0){
+    //    totalBar.style.width = '100%';
+    //    otherBar.style.width = '' + other/total * 100+ '%';
+    //    monthlyBar.style.width = '' + monthly/total * 100+ '%';
+    //    foodBar.style.width = '' + food/total * 100+ '%';
+    //    clothingBar.style.width = '' + clothing/total * 100+ '%';
+    //}else{
+    //    totalBar.style.width = '0%';
+    //    otherBar.style.width = '0%';
+    //    monthlyBar.style.width = '0%';
+    //    foodBar.style.width = '0%';
+    //    clothingBar.style.width = '0%';
+    //}
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(() => {
+        drawChart(total,other,monthly,food,clothing)});
 }
 
 //Show the over screen
@@ -403,17 +442,17 @@ const setup = function(csrf){
     
     
     
-    ReactDOM.render(
-        <FinanceGraph />, document.querySelector("#graph")
-    );
+    //ReactDOM.render(
+    //    <FinanceGraph />, document.querySelector("#graph")
+    //);
     handleGraph(0,0,0,0,0);
     loadFinancesFromServer();
     
-    document.querySelector("#barTotal").style.backgroundColor = "#b50000";
-   document.querySelector("#barOther").style.backgroundColor = "#00b500";
-   document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
-    document.querySelector("#barFood").style.backgroundColor = "b5b500";
-    document.querySelector("#barClothing").style.backgroundColor = "b500b5";
+   // document.querySelector("#barTotal").style.backgroundColor = "#b50000";
+   //document.querySelector("#barOther").style.backgroundColor = "#00b500";
+   //document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
+   // document.querySelector("#barFood").style.backgroundColor = "b5b500";
+   // document.querySelector("#barClothing").style.backgroundColor = "b500b5";
 };
 
 const getToken = () => {

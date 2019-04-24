@@ -450,3 +450,10 @@ h3.financeAmount{
 #sticky h2{
     margin-bottom: 20px;
 }
+
+#piechart{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 250px;
+    margin-top: 50px;
+}

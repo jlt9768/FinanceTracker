@@ -1,4 +1,32 @@
-"use strict";
+'use strict';
+
+google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.setOnLoadCallback(function () {
+    drawChart(0, 1, 1, 1, 1);
+});
+
+// Draw the chart and set the chart values
+function drawChart(total, other, monthly, food, clothing) {
+    if (total !== 0) {
+        var data = google.visualization.arrayToDataTable([['Type', 'Cost'], ['Other', other], ['Monthly', monthly], ['Food', food], ['Clothing', clothing]]);
+
+        // Optional; add a title and set the width and height of the chart
+        var options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 650, 'height': 500, 'backgroundColor': 'seashell' };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
+    } else {
+        var _data = google.visualization.arrayToDataTable([['Type', 'Cost'], ['None', 1]]);
+
+        // Optional; add a title and set the width and height of the chart
+        var _options = { 'title': 'Total Spent: $0', 'width': 650, 'height': 500, 'backgroundColor': 'seashell' };
+
+        // Display the chart inside the <div> element with id="piechart"
+        var _chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        _chart.draw(_data, _options);
+    }
+}
 
 //Change wether or not the over screen is displayed
 var hideOverScreen = function hideOverScreen(state) {
@@ -77,31 +105,36 @@ var handleUpgrade = function handleUpgrade(e) {
 
 //Update the finances graph based on any data that comes in
 var handleGraph = function handleGraph(total, other, monthly, food, clothing) {
-    var totalBar = document.querySelector("#barTotal");
-    var otherBar = document.querySelector("#barOther");
-    var monthlyBar = document.querySelector("#barMonthly");
-    var foodBar = document.querySelector("#barFood");
-    var clothingBar = document.querySelector("#barClothing");
-
-    totalBar.innerHTML = "Total: $" + total.toFixed(2);
-    otherBar.innerHTML = "Other: $" + other.toFixed(2);
-    monthlyBar.innerHTML = "Monthly: $" + monthly.toFixed(2);
-    foodBar.innerHTML = "Food: $" + food.toFixed(2);
-    clothingBar.innerHTML = "Clothing: $" + clothing.toFixed(2);
-
-    if (total !== 0) {
-        totalBar.style.width = '100%';
-        otherBar.style.width = '' + other / total * 100 + '%';
-        monthlyBar.style.width = '' + monthly / total * 100 + '%';
-        foodBar.style.width = '' + food / total * 100 + '%';
-        clothingBar.style.width = '' + clothing / total * 100 + '%';
-    } else {
-        totalBar.style.width = '0%';
-        otherBar.style.width = '0%';
-        monthlyBar.style.width = '0%';
-        foodBar.style.width = '0%';
-        clothingBar.style.width = '0%';
-    }
+    //let totalBar = document.querySelector("#barTotal");
+    //let otherBar = document.querySelector("#barOther");
+    //let monthlyBar = document.querySelector("#barMonthly");
+    //let foodBar = document.querySelector("#barFood");
+    //let clothingBar = document.querySelector("#barClothing");
+    //
+    //
+    //totalBar.innerHTML = "Total: $" + total.toFixed(2);
+    //otherBar.innerHTML = "Other: $" + other.toFixed(2);
+    //monthlyBar.innerHTML = "Monthly: $" + monthly.toFixed(2);
+    //foodBar.innerHTML = "Food: $" + food.toFixed(2);
+    //clothingBar.innerHTML = "Clothing: $" + clothing.toFixed(2);
+    //
+    //if(total !== 0){
+    //    totalBar.style.width = '100%';
+    //    otherBar.style.width = '' + other/total * 100+ '%';
+    //    monthlyBar.style.width = '' + monthly/total * 100+ '%';
+    //    foodBar.style.width = '' + food/total * 100+ '%';
+    //    clothingBar.style.width = '' + clothing/total * 100+ '%';
+    //}else{
+    //    totalBar.style.width = '0%';
+    //    otherBar.style.width = '0%';
+    //    monthlyBar.style.width = '0%';
+    //    foodBar.style.width = '0%';
+    //    clothingBar.style.width = '0%';
+    //}
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(function () {
+        drawChart(total, other, monthly, food, clothing);
+    });
 };
 
 //Show the over screen
@@ -118,25 +151,25 @@ var handleOnChange = function handleOnChange(e) {
 //The React Component for the pop up when upgrade is clicked
 var UpgradePop = function UpgradePop(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
-        "Upgrade to premium today for only $2 USD. You gain access to more options to differentiate types of finances.",
-        React.createElement("br", null),
+        'Upgrade to premium today for only $2 USD. You gain access to more options to differentiate types of finances.',
+        React.createElement('br', null),
         React.createElement(
-            "button",
-            { id: "upgradeSubmit", onClick: handleUpgrade },
+            'button',
+            { id: 'upgradeSubmit', onClick: handleUpgrade },
             React.createElement(
-                "a",
-                { href: "/" },
-                "Upgrade"
+                'a',
+                { href: '/' },
+                'Upgrade'
             )
         ),
         React.createElement(
-            "button",
-            { id: "exitButton", onClick: function onClick() {
+            'button',
+            { id: 'exitButton', onClick: function onClick() {
                     return hideOverScreen(true);
                 } },
-            "Exit"
+            'Exit'
         )
     );
 };
@@ -144,40 +177,40 @@ var UpgradePop = function UpgradePop(props) {
 //React component for the finance graph
 var FinanceGraph = function FinanceGraph(props) {
     return React.createElement(
-        "div",
-        { id: "sticky" },
+        'div',
+        { id: 'sticky' },
         React.createElement(
-            "h2",
+            'h2',
             null,
-            "Finances Graph:"
+            'Finances Graph:'
         ),
         React.createElement(
-            "div",
-            { id: "barPanel" },
+            'div',
+            { id: 'barPanel' },
             React.createElement(
-                "div",
-                { id: "barTotal" },
-                "Total:"
+                'div',
+                { id: 'barTotal' },
+                'Total:'
             ),
             React.createElement(
-                "div",
-                { id: "barOther" },
-                "Other:"
+                'div',
+                { id: 'barOther' },
+                'Other:'
             ),
             React.createElement(
-                "div",
-                { id: "barMonthly" },
-                "Monthly:"
+                'div',
+                { id: 'barMonthly' },
+                'Monthly:'
             ),
             React.createElement(
-                "div",
-                { id: "barFood" },
-                "Food:"
+                'div',
+                { id: 'barFood' },
+                'Food:'
             ),
             React.createElement(
-                "div",
-                { id: "barClothing" },
-                "Clothing:"
+                'div',
+                { id: 'barClothing' },
+                'Clothing:'
             )
         )
     );
@@ -186,53 +219,53 @@ var FinanceGraph = function FinanceGraph(props) {
 //React component for the change password form
 var ChangeForm = function ChangeForm(props) {
     return React.createElement(
-        "div",
+        'div',
         null,
         React.createElement(
-            "form",
-            { id: "changeForm", name: "changeForm",
+            'form',
+            { id: 'changeForm', name: 'changeForm',
                 onSubmit: handleChange,
-                action: "/changePass",
-                method: "POST",
-                className: "changeForm"
+                action: '/changePass',
+                method: 'POST',
+                className: 'changeForm'
             },
             React.createElement(
-                "label",
-                { htmlFor: "name" },
-                "Username: "
+                'label',
+                { htmlFor: 'name' },
+                'Username: '
             ),
-            React.createElement("input", { id: "username", type: "text", name: "username", placeholder: "Username" }),
-            React.createElement("br", null),
+            React.createElement('input', { id: 'username', type: 'text', name: 'username', placeholder: 'Username' }),
+            React.createElement('br', null),
             React.createElement(
-                "label",
-                { htmlFor: "pass" },
-                "Password: "
+                'label',
+                { htmlFor: 'pass' },
+                'Password: '
             ),
-            React.createElement("input", { id: "password", type: "password", name: "pass", placeholder: "Current password" }),
-            React.createElement("br", null),
+            React.createElement('input', { id: 'password', type: 'password', name: 'pass', placeholder: 'Current password' }),
+            React.createElement('br', null),
             React.createElement(
-                "label",
-                { htmlFor: "newPass" },
-                "New Password: "
+                'label',
+                { htmlFor: 'newPass' },
+                'New Password: '
             ),
-            React.createElement("input", { id: "newPassword", type: "password", name: "newPass", placeholder: "New Password" }),
-            React.createElement("br", null),
+            React.createElement('input', { id: 'newPassword', type: 'password', name: 'newPass', placeholder: 'New Password' }),
+            React.createElement('br', null),
             React.createElement(
-                "label",
-                { htmlFor: "newPass2" },
-                "New Password: "
+                'label',
+                { htmlFor: 'newPass2' },
+                'New Password: '
             ),
-            React.createElement("input", { id: "newPassword2", type: "password", name: "newPass2", placeholder: "Confirm new password" }),
-            React.createElement("br", null),
-            React.createElement("input", { type: "hidden", name: "_csrf", value: props.csrf }),
-            React.createElement("input", { className: "makeChangeSubmit", type: "submit", value: "Change Password" })
+            React.createElement('input', { id: 'newPassword2', type: 'password', name: 'newPass2', placeholder: 'Confirm new password' }),
+            React.createElement('br', null),
+            React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
+            React.createElement('input', { className: 'makeChangeSubmit', type: 'submit', value: 'Change Password' })
         ),
         React.createElement(
-            "button",
-            { id: "exitButton", onClick: function onClick() {
+            'button',
+            { id: 'exitButton', onClick: function onClick() {
                     return hideOverScreen(true);
                 } },
-            "Exit"
+            'Exit'
         )
     );
 };
@@ -240,154 +273,154 @@ var ChangeForm = function ChangeForm(props) {
 //React component for the filters
 var Filter = function Filter(props) {
     return React.createElement(
-        "div",
-        { id: "reactFilter" },
+        'div',
+        { id: 'reactFilter' },
         React.createElement(
-            "label",
-            { "class": "filterLabel", htmlfor: "filter" },
-            "Type Filter: "
+            'label',
+            { 'class': 'filterLabel', htmlfor: 'filter' },
+            'Type Filter: '
         ),
         React.createElement(
-            "select",
-            { id: "filterType", name: "filter", onChange: handleOnChange },
-            React.createElement("option", { value: "", selected: true }),
+            'select',
+            { id: 'filterType', name: 'filter', onChange: handleOnChange },
+            React.createElement('option', { value: '', selected: true }),
             React.createElement(
-                "option",
-                { value: "Other" },
-                "Other"
+                'option',
+                { value: 'Other' },
+                'Other'
             ),
             React.createElement(
-                "option",
-                { value: "Monthly" },
-                "Monthly"
+                'option',
+                { value: 'Monthly' },
+                'Monthly'
             ),
             React.createElement(
-                "option",
-                { value: "Food" },
-                "Food"
+                'option',
+                { value: 'Food' },
+                'Food'
             ),
             React.createElement(
-                "option",
-                { value: "Clothing" },
-                "Clothing"
+                'option',
+                { value: 'Clothing' },
+                'Clothing'
             )
         ),
-        "\xA0",
+        '\xA0',
         React.createElement(
-            "label",
-            { "class": "filterLabel", htmlfor: "filter" },
-            "Date Filter: "
+            'label',
+            { 'class': 'filterLabel', htmlfor: 'filter' },
+            'Date Filter: '
         ),
-        React.createElement("input", { id: "filterDate", type: "date", name: "date", onChange: handleOnChange })
+        React.createElement('input', { id: 'filterDate', type: 'date', name: 'date', onChange: handleOnChange })
     );
 };
 
 //React Component for premium finance form
 var FinanceFormPremium = function FinanceFormPremium(props) {
     return React.createElement(
-        "form",
-        { id: "financeForm", name: "financeForm",
+        'form',
+        { id: 'financeForm', name: 'financeForm',
             onSubmit: handleFinance,
-            action: "/finance",
-            method: "POST",
-            className: "financeForm"
+            action: '/finance',
+            method: 'POST',
+            className: 'financeForm'
         },
         React.createElement(
-            "label",
-            { htmlFor: "item" },
-            "Item: "
+            'label',
+            { htmlFor: 'item' },
+            'Item: '
         ),
-        React.createElement("input", { id: "financeItem", type: "text", name: "item", placeholder: "Name of item" }),
+        React.createElement('input', { id: 'financeItem', type: 'text', name: 'item', placeholder: 'Name of item' }),
         React.createElement(
-            "label",
-            { id: "amount", htmlFor: "amount" },
-            "Amount: "
+            'label',
+            { id: 'amount', htmlFor: 'amount' },
+            'Amount: '
         ),
-        React.createElement("input", { id: "financeAmount", type: "text", name: "amount", placeholder: "Cost of item" }),
+        React.createElement('input', { id: 'financeAmount', type: 'text', name: 'amount', placeholder: 'Cost of item' }),
         React.createElement(
-            "label",
-            { htmlFor: "type" },
-            "Type: "
+            'label',
+            { htmlFor: 'type' },
+            'Type: '
         ),
         React.createElement(
-            "select",
-            { id: "financeType", name: "type" },
+            'select',
+            { id: 'financeType', name: 'type' },
             React.createElement(
-                "option",
-                { value: "Other", selected: true },
-                "Other"
+                'option',
+                { value: 'Other', selected: true },
+                'Other'
             ),
             React.createElement(
-                "option",
-                { value: "Monthly" },
-                "Monthly"
+                'option',
+                { value: 'Monthly' },
+                'Monthly'
             ),
             React.createElement(
-                "option",
-                { value: "Food" },
-                "Food"
+                'option',
+                { value: 'Food' },
+                'Food'
             ),
             React.createElement(
-                "option",
-                { value: "Clothing" },
-                "Clothing"
+                'option',
+                { value: 'Clothing' },
+                'Clothing'
             )
         ),
         React.createElement(
-            "label",
-            { htmlFor: "date" },
-            "Date: "
+            'label',
+            { htmlFor: 'date' },
+            'Date: '
         ),
-        React.createElement("input", { id: "financeDateInput", type: "date", name: "date" }),
-        React.createElement("input", { id: "csrf", type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeFinanceSubmit", type: "submit", value: "Add Finance" })
+        React.createElement('input', { id: 'financeDateInput', type: 'date', name: 'date' }),
+        React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
+        React.createElement('input', { className: 'makeFinanceSubmit', type: 'submit', value: 'Add Finance' })
     );
 };
 
 //React component for normal finance form
 var FinanceForm = function FinanceForm(props) {
     return React.createElement(
-        "form",
-        { id: "financeForm", name: "financeForm",
+        'form',
+        { id: 'financeForm', name: 'financeForm',
             onSubmit: handleFinance,
-            action: "/finance",
-            method: "POST",
-            className: "financeForm"
+            action: '/finance',
+            method: 'POST',
+            className: 'financeForm'
         },
         React.createElement(
-            "label",
-            { htmlFor: "item" },
-            "Item: "
+            'label',
+            { htmlFor: 'item' },
+            'Item: '
         ),
-        React.createElement("input", { id: "financeItem", type: "text", name: "item", placeholder: "Name of item" }),
+        React.createElement('input', { id: 'financeItem', type: 'text', name: 'item', placeholder: 'Name of item' }),
         React.createElement(
-            "label",
-            { id: "amount", htmlFor: "amount" },
-            "Amount: "
+            'label',
+            { id: 'amount', htmlFor: 'amount' },
+            'Amount: '
         ),
-        React.createElement("input", { id: "financeAmount", type: "text", name: "amount", placeholder: "Cost of item" }),
+        React.createElement('input', { id: 'financeAmount', type: 'text', name: 'amount', placeholder: 'Cost of item' }),
         React.createElement(
-            "label",
-            { htmlFor: "type" },
-            "Type: "
+            'label',
+            { htmlFor: 'type' },
+            'Type: '
         ),
         React.createElement(
-            "select",
-            { id: "financeType", name: "type" },
+            'select',
+            { id: 'financeType', name: 'type' },
             React.createElement(
-                "option",
-                { value: "Other", selected: true },
-                "Other"
+                'option',
+                { value: 'Other', selected: true },
+                'Other'
             )
         ),
         React.createElement(
-            "label",
-            { htmlFor: "date" },
-            "Date: "
+            'label',
+            { htmlFor: 'date' },
+            'Date: '
         ),
-        React.createElement("input", { id: "financeDateInput", type: "date", name: "date" }),
-        React.createElement("input", { id: "csrf", type: "hidden", name: "_csrf", value: props.csrf }),
-        React.createElement("input", { className: "makeFinanceSubmit", type: "submit", value: "Add Finance" })
+        React.createElement('input', { id: 'financeDateInput', type: 'date', name: 'date' }),
+        React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
+        React.createElement('input', { className: 'makeFinanceSubmit', type: 'submit', value: 'Add Finance' })
     );
 };
 
@@ -402,12 +435,12 @@ var FinanceList = function FinanceList(props) {
     if (props.finances.length === 0) {
 
         return React.createElement(
-            "div",
-            { className: "financeList" },
+            'div',
+            { className: 'financeList' },
             React.createElement(
-                "h3",
-                { className: "emptyFinance" },
-                "No Finances Yet"
+                'h3',
+                { className: 'emptyFinance' },
+                'No Finances Yet'
             )
         );
     };
@@ -429,38 +462,38 @@ var FinanceList = function FinanceList(props) {
                 break;
         }
         return React.createElement(
-            "div",
-            { key: finance._id, className: "finance" },
+            'div',
+            { key: finance._id, className: 'finance' },
             React.createElement(
-                "h3",
-                { className: "financeDate" },
-                "Date: \xA0\xA0 ",
+                'h3',
+                { className: 'financeDate' },
+                'Date: \xA0\xA0 ',
                 finance.date
             ),
             React.createElement(
-                "h3",
-                { className: "financeItem" },
-                " Item: \xA0\xA0   ",
+                'h3',
+                { className: 'financeItem' },
+                ' Item: \xA0\xA0   ',
                 finance.item
             ),
             React.createElement(
-                "h3",
-                { className: "financeAmount" },
-                " Amount: \xA0\xA0    $",
+                'h3',
+                { className: 'financeAmount' },
+                ' Amount: \xA0\xA0    $',
                 finance.amount
             ),
             React.createElement(
-                "h3",
-                { className: "financeType" },
-                " Type: \xA0\xA0    ",
+                'h3',
+                { className: 'financeType' },
+                ' Type: \xA0\xA0    ',
                 finance.type
             )
         );
     });
     handleGraph(total, other, monthly, food, clothing);
     return React.createElement(
-        "div",
-        { className: "financeList" },
+        'div',
+        { className: 'financeList' },
         financeNodes
     );
 };
@@ -522,15 +555,17 @@ var setup = function setup(csrf) {
         return false;
     });
 
-    ReactDOM.render(React.createElement(FinanceGraph, null), document.querySelector("#graph"));
+    //ReactDOM.render(
+    //    <FinanceGraph />, document.querySelector("#graph")
+    //);
     handleGraph(0, 0, 0, 0, 0);
     loadFinancesFromServer();
 
-    document.querySelector("#barTotal").style.backgroundColor = "#b50000";
-    document.querySelector("#barOther").style.backgroundColor = "#00b500";
-    document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
-    document.querySelector("#barFood").style.backgroundColor = "b5b500";
-    document.querySelector("#barClothing").style.backgroundColor = "b500b5";
+    // document.querySelector("#barTotal").style.backgroundColor = "#b50000";
+    //document.querySelector("#barOther").style.backgroundColor = "#00b500";
+    //document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
+    // document.querySelector("#barFood").style.backgroundColor = "b5b500";
+    // document.querySelector("#barClothing").style.backgroundColor = "b500b5";
 };
 
 var getToken = function getToken() {
