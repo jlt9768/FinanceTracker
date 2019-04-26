@@ -612,6 +612,7 @@ h3.financeAmount{
     h3.financeAmount{
         padding-right: 20px;
     }
+    
 }
 @media (max-width: 767px){
     #piechart{
@@ -638,6 +639,16 @@ h3.financeAmount{
     h3.financeAmount{
         font-size: 1.25em;
     }
+    nav{
+        min-width: 575px;
+    }
+    #finances {
+        min-width: 575px;
+    }
+    #topForm, #topForm2{
+        min-width: 575px;
+    }
+    
 }
 @media (max-width: 650px){
     #makeFinance, #makeGroup{
