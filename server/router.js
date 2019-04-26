@@ -14,6 +14,7 @@ const router = (app) => {
   app.post('/upgrade', mid.requiresLogin, controllers.Account.upgrade);
   app.post('/changePass', mid.requiresSecure, mid.requiresLogin,
           controllers.Account.changePass);
+  app.post('/recover', controllers.Account.recoverAcc);
 
   app.get('/groups', mid.requiresSecure, mid.requiresLogin, controllers.Group.groupPage);
   app.post('/groups', mid.requiresSecure, mid.requiresLogin, controllers.Group.make);

@@ -43,6 +43,25 @@ const handleSignup = (e) => {
     sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 };
 
+
+const handleRecover = (e) => {
+    e.preventDefault();
+    
+     $("#movingMessage").animate({height:'hide'}, 350);
+    
+    if($("#user").val() == ''){
+        handleError("All fields are required");
+        setTimeout(() => {
+          $("#movingMessage").animate({height:'hide'}, 350);
+        }, 3000);
+        return false;
+    }
+    
+    sendAjax('POST', $("#recoverForm").attr("action"), $("#recoverForm").serialize(), redirect);
+    return false;
+};
+
+
 //React Component for the login form
 const LoginWindow = (props) => {
     return(
@@ -90,6 +109,30 @@ const SignupWindow = (props) => {
     );  
 };
 
+const RecoverWindow = (props) => {
+    return(
+    
+        <form id="recoverForm" name = "recoverForm"
+            onSubmit = {handleRecover}
+            action = "/recover"
+            method="POST"
+            className="mainForm"
+        >
+        
+            
+        <label htmlFor="username">Username:</label>
+        <input id = "user" type = "text" name = "username" placeholder = "Username"></input>
+        <input type = "hidden" name = "_csrf" value = {props.csrf}/>
+        
+        <input className = "formSubmit" type = "submit" value = "Recover" />
+            
+            <label id = "text"> Clicking recover will send an email to the user's email with a new password.</label>
+        </form>
+    
+    );
+}
+
+
 //Create login window on react DOM
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
@@ -106,10 +149,18 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+const createRecoverWindow = (csrf) => {
+    ReactDOM.render(
+        <RecoverWindow csrf={csrf} />,
+        document.querySelector("#content")
+    );  
+};
+
 //Setup react DOM
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
+    const recoverButton = document.querySelector("#recoverButton");
     
     signupButton.addEventListener("click", (e) => {
        e.preventDefault();
@@ -120,6 +171,11 @@ const setup = (csrf) => {
     loginButton.addEventListener("click", (e) => {
        e.preventDefault();
        createLoginWindow(csrf);
+       return false;
+    });
+    recoverButton.addEventListener("click", (e) => {
+       e.preventDefault();
+       createRecoverWindow(csrf);
        return false;
     });
     

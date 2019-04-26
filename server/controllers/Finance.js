@@ -4,7 +4,6 @@ const Finance = models.Finance;
 
 // Render the finance page of the session user
 const financePage = (req, res) => {
-  console.log('FINANCE PAGE');
   Finance.FinanceModel.findByOwner(req.session.account._id,
     req.session.account.group, (err, docs) => {
       if (err) {

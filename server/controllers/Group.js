@@ -2,7 +2,7 @@ const models = require('../models');
 
 const Group = models.Group;
 
-// Render the finance page of the session user
+// Render the group page of the session user
 const groupPage = (req, res) => {
   Group.GroupModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
@@ -13,7 +13,7 @@ const groupPage = (req, res) => {
   });
 };
 
-// Create a new Finance based on the data that was submitted
+// Create a new Group based on the data that was submitted
 const makeGroup = (req, res) => {
   if (!req.body.name) {
     return res.status(400).json({ error: ' A group requires a name' });
@@ -24,24 +24,39 @@ const makeGroup = (req, res) => {
     name: req.body.name,
   };
 
-  const newGroup = new Group.GroupModel(groupData);
-
-  const groupPromise = newGroup.save();
-
-  groupPromise.then(() => res.json({ redirect: '/finance' }));
-
-  groupPromise.catch((err) => {
-    console.log(err);
-    if (err.code === 11000) {
+  return Group.GroupModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+    let found = false;
+    docs.forEach((element) => {
+      if (groupData.name === element.name) {
+        found = true;
+      }
+    });
+    if (found) {
       return res.status(400).json({ error: 'Group already exists' });
     }
+    const newGroup = new Group.GroupModel(groupData);
 
-    return res.status(400).json({ error: 'An error occurred' });
+    const groupPromise = newGroup.save();
+
+    groupPromise.then(() => res.json({ redirect: '/finance' }));
+
+    groupPromise.catch((err2) => {
+      console.log(err2);
+      if (err2.code === 11000) {
+        return res.status(400).json({ error: 'Group already exists' });
+      }
+
+      return res.status(400).json({ error: 'An error occurred' });
+    });
+    return groupPromise;
   });
-  return groupPromise;
 };
 
-// Get all finances of the user
+// Get all groups of the user
 const getGroups = (request, response) => {
   const req = request;
   const res = response;
@@ -61,8 +76,6 @@ const setGroup = (request, response) => {
 
 
   req.session.account.group = req.body.name;
-
-  console.log('SET');
 
   return res.json({ redirect: '/finance' });
 };

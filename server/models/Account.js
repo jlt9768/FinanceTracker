@@ -117,6 +117,16 @@ AccountSchema.statics.upgrade = (name, callback) => {
   return AccountModel.updateOne(search, premium, callback);
 };
 
+AccountSchema.statics.recover = (username, callback) =>
+AccountModel.findByUsername(username, (err, doc) => {
+  if (err) {
+    return callback(err);
+  }
+  if (!doc) {
+    return callback();
+  }
+  return callback(null, doc);
+});
 
 AccountModel = mongoose.model('Account', AccountSchema);
 

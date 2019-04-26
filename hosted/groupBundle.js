@@ -3,8 +3,6 @@
 var handleChoice = function handleChoice(e) {
     e.preventDefault();
 
-    console.log(e.currentTarget.id);
-
     sendAjax('POST', '/setGroup', $("#" + e.currentTarget.id).serialize(), function () {
         //window.location = '/finance';
         window.location = '/finance';
@@ -62,7 +60,6 @@ var GroupForm = function GroupForm(props) {
 //React component for list of finances
 //Also updates the graph with the incoming list
 var GroupList = function GroupList(props) {
-    console.log(csrf);
     if (props.groups.length === 0) {
         return React.createElement(
             'div',
@@ -76,7 +73,6 @@ var GroupList = function GroupList(props) {
     };
 
     var groupNodes = props.groups.map(function (group) {
-        console.log(csrf.value);
         return (
             //<div key={group._id} className = "group">
             //    

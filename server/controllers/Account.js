@@ -1,5 +1,16 @@
 const models = require('../models');
 
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'financetracker.jlt@gmail.com',
+    pass: 'FTGYHUJI',
+  },
+});
+
+
 const Account = models.Account;
 
 const loginPage = (req, res) => {
@@ -47,6 +58,55 @@ const changePass = (req, res) => {
     });
   });
 };
+
+
+const recoverAcc = (req, res) => {
+  const username = `${req.body.username}`;
+
+  if (!username) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  return Account.AccountModel.recover(username, (err, doc) => {
+    if (err || !doc) {
+      return res.status(404).json({ error: 'No account with that username' });
+    }
+
+    const newPass = Math.random().toString(36).substr(2, 8);
+
+    return Account.AccountModel.generateHash(newPass, (salt, hash) => {
+      const accountData = {
+        salt,
+        password: hash,
+      };
+      return Account.AccountModel.updatePass(username, accountData, (err2) => {
+        if (err2) {
+          console.dir(err2);
+        }
+
+        const mailOptions = {
+          from: 'financetracker.jlt@gmail.com',
+          to: doc.email,
+          subject: 'Password recovery',
+          html: '<p> A password recovery has been initiated on your account.' +
+            `Your recovery password is <b>${newPass}<b>. <br></br> <br></br> <b>Make sure ` +
+            'once you log back in to change your password to something you will remember!</b></p>',
+        };
+        transporter.sendMail(mailOptions, (err3, info) => {
+          if (err3) {
+            console.log(err3);
+          } else {
+            console.log(info);
+          }
+        });
+
+
+        return res.json({ redirect: '/' });
+      });
+    });
+  });
+};
+
 
 // Login controller
 const login = (request, response) => {
@@ -103,6 +163,22 @@ const signup = (request, response) => {
 
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
+
+      const mailOptions = {
+        from: 'financetracker.jlt@gmail.com',
+        to: req.body.email,
+        subject: 'Welcome to Finance Tracker!',
+        html: `<p> Thank you ${req.body.username} for joining!` +
+          'You can use this app to track all of your finances.</p>',
+      };
+      transporter.sendMail(mailOptions, (err2, info) => {
+        if (err2) {
+          console.log(err2);
+        } else {
+          console.log(info);
+        }
+      });
+
       return res.json({ redirect: '/groups' });
     });
     savePromise.catch((err) => {
@@ -160,3 +236,4 @@ module.exports.changePass = changePass;
 module.exports.changePassPage = changePassPage;
 module.exports.getPremium = getPremium;
 module.exports.upgrade = upgrade;
+module.exports.recoverAcc = recoverAcc;
