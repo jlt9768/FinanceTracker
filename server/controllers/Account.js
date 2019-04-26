@@ -1,12 +1,13 @@
 const models = require('../models');
 
-const nodemailer = require('nodemailer');
 
+//Set up nodemailer account requirements
+const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'financetracker.jlt@gmail.com',
-    pass: 'FTGYHUJI',
+    pass: process.env.GMAIL_PASS,
   },
 });
 
@@ -59,7 +60,10 @@ const changePass = (req, res) => {
   });
 };
 
-
+//Allow the user to recover their account given they know the username
+//First checks if an account exists given the entered name
+//Then generate a new random password for the user
+//Update the user's pass and send an email with their new recovery password
 const recoverAcc = (req, res) => {
   const username = `${req.body.username}`;
 
@@ -71,7 +75,9 @@ const recoverAcc = (req, res) => {
     if (err || !doc) {
       return res.status(404).json({ error: 'No account with that username' });
     }
-
+    
+    // Line to create semi random passwords with letters and numbers
+    // Obtained from: https://gist.github.com/gordonbrander/2230317
     const newPass = Math.random().toString(36).substr(2, 8);
 
     return Account.AccountModel.generateHash(newPass, (salt, hash) => {

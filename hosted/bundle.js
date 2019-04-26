@@ -1,5 +1,6 @@
 'use strict';
 
+//Used for resizing purposes of the pie chart
 var previousSize = void 0;
 
 // Draw the chart and set the chart values
@@ -112,6 +113,17 @@ var handleUpgrade = function handleUpgrade(e) {
 
 //Update the finances graph based on any data that comes in
 var handleGraph = function handleGraph(total, other, monthly, food, clothing) {
+
+    //New code for Pie Chart
+    //Uses Google Charts to quickly create a nice looking pie chart
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(function () {
+        drawChart(total, other, monthly, food, clothing);
+    });
+
+    ///////////////////////////////////////////////////////////////
+    //OLD GRAPH CODE
+    ///////////////////////////////////////////////////////////////
     //let totalBar = document.querySelector("#barTotal");
     //let otherBar = document.querySelector("#barOther");
     //let monthlyBar = document.querySelector("#barMonthly");
@@ -138,10 +150,6 @@ var handleGraph = function handleGraph(total, other, monthly, food, clothing) {
     //    foodBar.style.width = '0%';
     //    clothingBar.style.width = '0%';
     //}
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(function () {
-        drawChart(total, other, monthly, food, clothing);
-    });
 };
 
 //Show the over screen
@@ -575,16 +583,21 @@ var setup = function setup(csrf) {
         drawChart(0, 1, 1, 1, 1);
     });
 
-    //ReactDOM.render(
-    //    <FinanceGraph />, document.querySelector("#graph")
-    //);
     handleGraph(0, 0, 0, 0, 0);
     loadFinancesFromServer();
 
     previousSize = $(window).width();
+
+    ////////////////////////////////
+    //Old Code for bar graph display
+
+    //ReactDOM.render(
+    //    <FinanceGraph />, document.querySelector("#graph")
+    //);
+
     // document.querySelector("#barTotal").style.backgroundColor = "#b50000";
-    //document.querySelector("#barOther").style.backgroundColor = "#00b500";
-    //document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
+    // document.querySelector("#barOther").style.backgroundColor = "#00b500";
+    // document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
     // document.querySelector("#barFood").style.backgroundColor = "b5b500";
     // document.querySelector("#barClothing").style.backgroundColor = "b500b5";
 };
@@ -595,6 +608,7 @@ var getToken = function getToken() {
     });
 };
 
+//Check the size of the current window to determine if the pie chart needs to be resized as screen gets smaller
 var checkSize = function checkSize() {
     if ($(window).width() < 1390 && previousSize >= 1390) {
         loadFilteredFromServer();
