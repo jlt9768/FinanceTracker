@@ -1,7 +1,5 @@
-google.charts.load('current', {'packages':['corechart']});
-google.charts.setOnLoadCallback(() => {
-   drawChart(0,1,1,1,1)});
 
+let previousSize;
 
 // Draw the chart and set the chart values
 function drawChart(total, other, monthly, food, clothing) {
@@ -15,7 +13,13 @@ function drawChart(total, other, monthly, food, clothing) {
         ]);
         
         // Optional; add a title and set the width and height of the chart
-        let options = {'title':'Total Spent: $' + total.toFixed(2), 'width':650, 'height':500, 'backgroundColor': 'seashell'};
+        let options;
+        if($(window).width() < 1390){
+            options = {'title':'Total Spent: $' + total.toFixed(2), 'width':750, 'height':600, 'backgroundColor': {fill:'transparent'}, 'z-index': 0};
+        }else{
+            options = {'title':'Total Spent: $' + total.toFixed(2), 'width':850, 'height':700, 'backgroundColor': {fill:'transparent'}, 'z-index': 0};
+        }
+        
         
         // Display the chart inside the <div> element with id="piechart"
         let chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -27,7 +31,12 @@ function drawChart(total, other, monthly, food, clothing) {
         ]);
         
         // Optional; add a title and set the width and height of the chart
-        let options = {'title':'Total Spent: $0', 'width':650, 'height':500, 'backgroundColor': 'seashell'};
+        let options;
+        if($(window).width() < 1390){
+            options = {'title':'Total Spent: $' + total.toFixed(2), 'width':750, 'height':600, 'backgroundColor': {fill:'transparent'}, 'z-index': 0};
+        }else{
+            options = {'title':'Total Spent: $' + total.toFixed(2), 'width':850, 'height':700, 'backgroundColor': {fill:'transparent'}, 'z-index': 0};
+        }
         
         // Display the chart inside the <div> element with id="piechart"
         let chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -255,22 +264,27 @@ const FinanceFormPremium = (props) => {
             className="financeForm"
         >
         
-        
-        <label htmlFor="item">Item: </label>
-        <input id = "financeItem" type="text" name="item" placeholder = "Name of item"/>
-        <label id = "amount" htmlFor="amount">Amount: </label>
-        <input id = "financeAmount" type="text" name="amount" placeholder = "Cost of item"/>
-        <label htmlFor="type">Type: </label>
-        <select id = "financeType" name = "type">
-            <option value="Other" selected>Other</option>
-            <option value="Monthly">Monthly</option>
-            <option value="Food">Food</option>
-            <option value="Clothing">Clothing</option>
-        </select>
+        <div id = "topForm">
+            <label htmlFor="item">Item: </label>
+            <input id = "financeItem" type="text" name="item" placeholder = "Name of item"></input>
+            <label id = "amount" htmlFor="amount">Amount: </label>
+            <input id = "financeAmount" type="text" name="amount" placeholder = "Cost of item"></input>
+        </div>
+        <div id = "topForm2">
+            <label htmlFor="type">Type: </label>
+            <select id = "financeType" name = "type">
+                <option value="Other" selected>Other</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Food">Food</option>
+                <option value="Clothing">Clothing</option>
+            </select>
             <label htmlFor="date">Date: </label>
-        <input id = "financeDateInput" type="date" name="date"/>
-        <input id = "csrf" type = "hidden" name = "_csrf" value = {props.csrf}/>
-        <input className = "makeFinanceSubmit" type = "submit" value = "Add Finance" />
+            <input id = "financeDateInput" type="date" name="date"/>
+            <input id = "csrf" type = "hidden" name = "_csrf" value = {props.csrf}/>
+            <input className = "makeFinanceSubmit" type = "submit" value = "Add Finance" />
+        </div>
+        
+        
         </form>
         
 
@@ -440,7 +454,9 @@ const setup = function(csrf){
        return false;
     });
     
-    
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(() => {
+        drawChart(0,1,1,1,1)});
     
     //ReactDOM.render(
     //    <FinanceGraph />, document.querySelector("#graph")
@@ -448,6 +464,7 @@ const setup = function(csrf){
     handleGraph(0,0,0,0,0);
     loadFinancesFromServer();
     
+    previousSize = $(window).width();
    // document.querySelector("#barTotal").style.backgroundColor = "#b50000";
    //document.querySelector("#barOther").style.backgroundColor = "#00b500";
    //document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
@@ -461,9 +478,21 @@ const getToken = () => {
     }); 
 };
 
+const checkSize = () => {
+    if($(window).width() < 1390 && previousSize >= 1390){
+        loadFilteredFromServer();
+    }else if($(window).width() >= 1390 && previousSize < 1390){
+        loadFilteredFromServer();     
+    }
+    previousSize = $(window).width();
+}
+
 $(document).ready(function() {
    getToken();
    hideOverScreen(true);
    
 });
 
+$(window).resize(function() {
+   checkSize(); 
+});

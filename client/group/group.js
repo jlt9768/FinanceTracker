@@ -43,13 +43,15 @@ const GroupForm= (props) => {
             className="groupForm"
         >
         
-        
-        <label htmlFor="name">Group Name: </label>
-        <input id = "groupName" type="text" name="name" placeholder = "Name of group"/>
-        
-        <input id = "csrf" type = "hidden" name = "_csrf" value = {props.csrf}/>
-        <input className = "makeGroupSubmit" type = "submit" value = "Create" />
+            <div id="groupFormDiv">
+                <label htmlFor="name">Group Name: </label>
+                <input id = "groupName" type="text" name="name" placeholder = "Name of group"/>
+                
+                <input id = "csrf" type = "hidden" name = "_csrf" value = {props.csrf}/>
+                <input className = "makeGroupSubmit" type = "submit" value = "Create" />
+            </div>
         </form>
+        
 
     );  
 };
@@ -80,11 +82,13 @@ const GroupList = function(props) {
                 method="POST"
                 className="choiceForm"
                 >
-                    <label htmlFor="name">Group: </label>
-                    <label id = "groupNameInd" name="name">{group.name}</label>
-                    <input id = {"nameID" + group.name} type = "hidden" name = "name" value = {group.name}/>
-                    <input id = "csrf" type = "hidden" name = "_csrf" value = {csrf.value}/>
-                    <input className = "chooseGroupSubmit" type = "submit" value = "Choose" />
+                    <div className="groupDiv">
+                        <label htmlFor="name">Group: </label>
+                        <label id = "groupNameInd" name="name">{group.name}</label>
+                        <input id = {"nameID" + group.name} type = "hidden" name = "name" value = {group.name}/>
+                        <input id = "csrf" type = "hidden" name = "_csrf" value = {csrf.value}/>
+                        <input className = "chooseGroupSubmit" type = "submit" value = "Choose" />
+                    </div>
                 </form>
         );
          

@@ -61,9 +61,68 @@ nav:nth-child(1) {
     z-index: 100;
 }
 
-#groups{
-    margin-left: 65px;
+.groupForm{
+    text-align: center;
+    font-size: 1.5em;
+    padding-bottom: 50px;
 }
+.groupList{
+    width: 70%;
+    min-width: 400px;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    margin: 0 auto;
+    margin-top: 25px;
+    background: white;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.chooseGroupSubmit{
+    margin-left: 30px;
+    margin-right: 20px;
+}
+.choiceForm label{
+    margin-left: 30px;
+}
+
+#groupFormDiv{
+    margin: auto;
+    display: inline-block;
+}
+.groupForm label{
+    margin-right: 10px;
+}
+.makeGroupSubmit{
+    margin-left: 20px;
+}
+.groupDiv{
+    margin: auto;
+    font-size: 1.6em;
+}
+.groupDiv label{
+    float: left;
+}
+.groupDiv .chooseGroupSubmit{
+    float: right;
+}
+#groupNameInd{
+    float: none;
+}
+.choiceForm{
+    width: 85%;
+    margin: 0 auto;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    border: 2px solid #B17E55;
+    border-radius: 4px;
+    background-color: #D7AB88;
+    padding: 10px;
+    min-height:60px;
+    overflow: hidden;
+    text-align: center;
+}
+
 
 .financeForm, .groupForm {
     border-right: 2px solid #126537;
@@ -80,10 +139,6 @@ nav:nth-child(1) {
     border-bottom-left-radius: 4px; 
 }
 
-.groupForm{
-    padding-left:auto;
-    padding-right:auto;
-}
 
 .financeForm label {
     display: inline-block;
@@ -257,6 +312,7 @@ nav:nth-child(1) {
     padding: 10px;
     min-height:60px;
     overflow: hidden;
+    z-index: 50;
 }
 
 .finance:hover {
@@ -315,8 +371,8 @@ h3.financeAmount{
 }
 
 #filter{
-    width: 80%;
-    min-width: 300px;
+    width: 90%;
+    min-width: 500px;
     margin: 0 auto;
     margin-top: 40px;
     background-color: white;
@@ -417,7 +473,7 @@ h3.financeAmount{
     padding-top: 80px;
     padding-right: 50px;
     padding-left: 20px;
-    
+    z-index:0;
 }
 
 #barPanel{
@@ -456,4 +512,143 @@ h3.financeAmount{
     position: sticky;
     top: 250px;
     margin-top: 50px;
+    margin-left: -110px;
+}
+
+@media (max-width: 1390px){
+    #piechart{
+        margin-left: -90px;
+    }
+    h3.emptyFinance {
+        font-size: 1.2em;
+    }
+    
+    h3.financeDate {
+        font-size: 1.2em;
+    }
+    
+    h3.financeItem {
+        font-size: 1.2em;
+    }
+    h3.financeType{
+        font-size: 1.2em;
+    }
+    h3.financeAmount{
+        font-size: 1.2em;
+    }
+}
+@media (max-width: 1200px){
+    #makeFinance{
+        width:100%;
+    }
+    .financeForm, .groupForm {
+        width: 100%;
+    }
+    #piechart{
+        margin-left: -150px;
+        z-index: 0;
+    }
+    #finances {
+        width: 90%;
+    }
+}
+@media (max-width: 1080px){
+    #financeItem, #financeAmount{
+        width: 12%;
+        min-width:100px;
+    }
+    h3.emptyFinance {
+        font-size: 1.0em;
+    }
+    
+    h3.financeDate {
+        font-size: 1.0em;
+    }
+    
+    h3.financeItem {
+        font-size: 1.0em;
+    }
+    h3.financeType{
+        font-size: 1.0em;
+    }
+    h3.financeAmount{
+        font-size: 1.0em;
+    }
+}
+@media (max-width: 940px){
+    .financeForm{
+        height: 110px;
+    }
+    .financeForm label {
+        display:inline-block;
+    }
+    
+    .financeForm select {
+        display: inline-block;
+    }
+    #topForm, #topForm2{
+        width: 100%;
+        display: block;
+        min-height: 55px;
+    }
+    #financeItem, #financeAmount{
+        width: 30%;
+        min-width:100px;
+    }
+    #finances {
+        width: 100%;
+    }
+    
+    h3.financeDate {
+        padding-right: 20px;
+    }
+    
+    h3.financeItem {
+        padding-right: 20px;
+    }
+    h3.financeType{
+        padding-right: 20px;
+    }
+    h3.financeAmount{
+        padding-right: 20px;
+    }
+}
+@media (max-width: 767px){
+    #piechart{
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0px;
+        margin-top: -100px;
+        margin-left: 0px;
+    }
+    h3.emptyFinance {
+        font-size: 1.4em;
+    }
+    
+    h3.financeDate {
+        font-size: 1.25em;
+    }
+    
+    h3.financeItem {
+        font-size: 1.25em;
+    }
+    h3.financeType{
+        font-size: 1.25em;
+    }
+    h3.financeAmount{
+        font-size: 1.25em;
+    }
+}
+@media (max-width: 650px){
+    #makeFinance, #makeGroup{
+        width:100%;
+    }
+    .groupForm{
+        width: 100%;
+        min-width: 550px;
+    }
+    .groupList{
+        width: 100%;
+        min-width: 460px;
+    }
 }

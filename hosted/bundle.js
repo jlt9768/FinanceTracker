@@ -1,9 +1,6 @@
 'use strict';
 
-google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(function () {
-    drawChart(0, 1, 1, 1, 1);
-});
+var previousSize = void 0;
 
 // Draw the chart and set the chart values
 function drawChart(total, other, monthly, food, clothing) {
@@ -11,7 +8,12 @@ function drawChart(total, other, monthly, food, clothing) {
         var data = google.visualization.arrayToDataTable([['Type', 'Cost'], ['Other', other], ['Monthly', monthly], ['Food', food], ['Clothing', clothing]]);
 
         // Optional; add a title and set the width and height of the chart
-        var options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 650, 'height': 500, 'backgroundColor': 'seashell' };
+        var options = void 0;
+        if ($(window).width() < 1390) {
+            options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 750, 'height': 600, 'backgroundColor': { fill: 'transparent' }, 'z-index': 0 };
+        } else {
+            options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 850, 'height': 700, 'backgroundColor': { fill: 'transparent' }, 'z-index': 0 };
+        }
 
         // Display the chart inside the <div> element with id="piechart"
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -20,7 +22,12 @@ function drawChart(total, other, monthly, food, clothing) {
         var _data = google.visualization.arrayToDataTable([['Type', 'Cost'], ['None', 1]]);
 
         // Optional; add a title and set the width and height of the chart
-        var _options = { 'title': 'Total Spent: $0', 'width': 650, 'height': 500, 'backgroundColor': 'seashell' };
+        var _options = void 0;
+        if ($(window).width() < 1390) {
+            _options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 750, 'height': 600, 'backgroundColor': { fill: 'transparent' }, 'z-index': 0 };
+        } else {
+            _options = { 'title': 'Total Spent: $' + total.toFixed(2), 'width': 850, 'height': 700, 'backgroundColor': { fill: 'transparent' }, 'z-index': 0 };
+        }
 
         // Display the chart inside the <div> element with id="piechart"
         var _chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -326,54 +333,62 @@ var FinanceFormPremium = function FinanceFormPremium(props) {
             className: 'financeForm'
         },
         React.createElement(
-            'label',
-            { htmlFor: 'item' },
-            'Item: '
-        ),
-        React.createElement('input', { id: 'financeItem', type: 'text', name: 'item', placeholder: 'Name of item' }),
-        React.createElement(
-            'label',
-            { id: 'amount', htmlFor: 'amount' },
-            'Amount: '
-        ),
-        React.createElement('input', { id: 'financeAmount', type: 'text', name: 'amount', placeholder: 'Cost of item' }),
-        React.createElement(
-            'label',
-            { htmlFor: 'type' },
-            'Type: '
-        ),
-        React.createElement(
-            'select',
-            { id: 'financeType', name: 'type' },
+            'div',
+            { id: 'topForm' },
             React.createElement(
-                'option',
-                { value: 'Other', selected: true },
-                'Other'
+                'label',
+                { htmlFor: 'item' },
+                'Item: '
+            ),
+            React.createElement('input', { id: 'financeItem', type: 'text', name: 'item', placeholder: 'Name of item' }),
+            React.createElement(
+                'label',
+                { id: 'amount', htmlFor: 'amount' },
+                'Amount: '
+            ),
+            React.createElement('input', { id: 'financeAmount', type: 'text', name: 'amount', placeholder: 'Cost of item' })
+        ),
+        React.createElement(
+            'div',
+            { id: 'topForm2' },
+            React.createElement(
+                'label',
+                { htmlFor: 'type' },
+                'Type: '
             ),
             React.createElement(
-                'option',
-                { value: 'Monthly' },
-                'Monthly'
+                'select',
+                { id: 'financeType', name: 'type' },
+                React.createElement(
+                    'option',
+                    { value: 'Other', selected: true },
+                    'Other'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Monthly' },
+                    'Monthly'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Food' },
+                    'Food'
+                ),
+                React.createElement(
+                    'option',
+                    { value: 'Clothing' },
+                    'Clothing'
+                )
             ),
             React.createElement(
-                'option',
-                { value: 'Food' },
-                'Food'
+                'label',
+                { htmlFor: 'date' },
+                'Date: '
             ),
-            React.createElement(
-                'option',
-                { value: 'Clothing' },
-                'Clothing'
-            )
-        ),
-        React.createElement(
-            'label',
-            { htmlFor: 'date' },
-            'Date: '
-        ),
-        React.createElement('input', { id: 'financeDateInput', type: 'date', name: 'date' }),
-        React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeFinanceSubmit', type: 'submit', value: 'Add Finance' })
+            React.createElement('input', { id: 'financeDateInput', type: 'date', name: 'date' }),
+            React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
+            React.createElement('input', { className: 'makeFinanceSubmit', type: 'submit', value: 'Add Finance' })
+        )
     );
 };
 
@@ -555,12 +570,18 @@ var setup = function setup(csrf) {
         return false;
     });
 
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(function () {
+        drawChart(0, 1, 1, 1, 1);
+    });
+
     //ReactDOM.render(
     //    <FinanceGraph />, document.querySelector("#graph")
     //);
     handleGraph(0, 0, 0, 0, 0);
     loadFinancesFromServer();
 
+    previousSize = $(window).width();
     // document.querySelector("#barTotal").style.backgroundColor = "#b50000";
     //document.querySelector("#barOther").style.backgroundColor = "#00b500";
     //document.querySelector("#barMonthly").style.backgroundColor = "0000b5";
@@ -574,9 +595,22 @@ var getToken = function getToken() {
     });
 };
 
+var checkSize = function checkSize() {
+    if ($(window).width() < 1390 && previousSize >= 1390) {
+        loadFilteredFromServer();
+    } else if ($(window).width() >= 1390 && previousSize < 1390) {
+        loadFilteredFromServer();
+    }
+    previousSize = $(window).width();
+};
+
 $(document).ready(function () {
     getToken();
     hideOverScreen(true);
+});
+
+$(window).resize(function () {
+    checkSize();
 });
 "use strict";
 

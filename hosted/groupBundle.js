@@ -45,13 +45,17 @@ var GroupForm = function GroupForm(props) {
             className: 'groupForm'
         },
         React.createElement(
-            'label',
-            { htmlFor: 'name' },
-            'Group Name: '
-        ),
-        React.createElement('input', { id: 'groupName', type: 'text', name: 'name', placeholder: 'Name of group' }),
-        React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeGroupSubmit', type: 'submit', value: 'Create' })
+            'div',
+            { id: 'groupFormDiv' },
+            React.createElement(
+                'label',
+                { htmlFor: 'name' },
+                'Group Name: '
+            ),
+            React.createElement('input', { id: 'groupName', type: 'text', name: 'name', placeholder: 'Name of group' }),
+            React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: props.csrf }),
+            React.createElement('input', { className: 'makeGroupSubmit', type: 'submit', value: 'Create' })
+        )
     );
 };
 
@@ -88,18 +92,22 @@ var GroupList = function GroupList(props) {
                     className: 'choiceForm'
                 },
                 React.createElement(
-                    'label',
-                    { htmlFor: 'name' },
-                    'Group: '
-                ),
-                React.createElement(
-                    'label',
-                    { id: 'groupNameInd', name: 'name' },
-                    group.name
-                ),
-                React.createElement('input', { id: "nameID" + group.name, type: 'hidden', name: 'name', value: group.name }),
-                React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: csrf.value }),
-                React.createElement('input', { className: 'chooseGroupSubmit', type: 'submit', value: 'Choose' })
+                    'div',
+                    { className: 'groupDiv' },
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'name' },
+                        'Group: '
+                    ),
+                    React.createElement(
+                        'label',
+                        { id: 'groupNameInd', name: 'name' },
+                        group.name
+                    ),
+                    React.createElement('input', { id: "nameID" + group.name, type: 'hidden', name: 'name', value: group.name }),
+                    React.createElement('input', { id: 'csrf', type: 'hidden', name: '_csrf', value: csrf.value }),
+                    React.createElement('input', { className: 'chooseGroupSubmit', type: 'submit', value: 'Choose' })
+                )
             )
         );
     });
