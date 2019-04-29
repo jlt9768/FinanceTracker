@@ -29,12 +29,15 @@ const makeGroup = (req, res) => {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });
     }
+      
+    //Check if a user already has a group of the accepted name
     let found = false;
     docs.forEach((element) => {
       if (groupData.name === element.name) {
         found = true;
       }
     });
+    //If the name already exists return an error
     if (found) {
       return res.status(400).json({ error: 'Group already exists' });
     }
@@ -70,6 +73,7 @@ const getGroups = (request, response) => {
   });
 };
 
+//Set the users group to load finances from
 const setGroup = (request, response) => {
   const req = request;
   const res = response;

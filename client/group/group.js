@@ -4,7 +4,6 @@ const handleChoice = (e) =>{
     
     
     sendAjax('POST', '/setGroup', $("#" + e.currentTarget.id).serialize(), function() {
-       //window.location = '/finance';
        window.location = '/finance';
     });
     
@@ -68,11 +67,6 @@ const GroupList = function(props) {
     
     const groupNodes = props.groups.map(function(group) {
             return(
-            //<div key={group._id} className = "group">
-            //    
-            //    <h3 className = "groupName">Group: &nbsp;&nbsp; {group.name}</h3>
-            //    <button onClick = {() => {handleChoice(group.name);}}>Choose</button>
-            //</div>
                 <form key ={group._id} id={group.name} name = "choiceForm"
                 onSubmit = {handleChoice}
                 action = "/setGroup"
