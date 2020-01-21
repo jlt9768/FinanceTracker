@@ -39,7 +39,7 @@ const AccountSchema = new mongoose.Schema({
   },
 });
 
-AccountSchema.statics.toAPI = doc => ({
+AccountSchema.statics.toAPI = (doc) => ({
   // _id is built into your mongo document and is guaranteed to be unique
   username: doc.username,
   _id: doc._id,
@@ -69,13 +69,11 @@ AccountSchema.statics.findByUsername = (name, callback) => {
 AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
-  crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) =>
-    callback(salt, hash.toString('hex'))
-  );
+  crypto.pbkdf2(password, salt, iterations, keyLength, 'RSA-SHA512', (err, hash) => callback(salt, hash.toString('hex')));
 };
 
-AccountSchema.statics.authenticate = (username, password, callback) =>
-AccountModel.findByUsername(username, (err, doc) => {
+/* eslint max-len: ["error", { "code": 150 }] */
+AccountSchema.statics.authenticate = (username, password, callback) => AccountModel.findByUsername(username, (err, doc) => {
   if (err) {
     return callback(err);
   }
@@ -117,8 +115,7 @@ AccountSchema.statics.upgrade = (name, callback) => {
   return AccountModel.updateOne(search, premium, callback);
 };
 
-AccountSchema.statics.recover = (username, callback) =>
-AccountModel.findByUsername(username, (err, doc) => {
+AccountSchema.statics.recover = (username, callback) => AccountModel.findByUsername(username, (err, doc) => {
   if (err) {
     return callback(err);
   }

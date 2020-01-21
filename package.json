@@ -17,7 +17,7 @@
     "watchGroupBundle": "babel --watch ./client/group ./client/helper --presets react --out-file ./hosted/groupBundle.js",
     "nodemon": "nodemon --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
-    "pretest": "eslint ./server --fix",
+    "pretest": "eslint ./server ",
     "test": "echo \"Tests complete\""
   },
   "keywords": [
@@ -48,9 +48,9 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "eslint": "^6.8.0",
+    "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-import": "^2.18.2",
     "nodemon": "^2.0.2"
   }
 }

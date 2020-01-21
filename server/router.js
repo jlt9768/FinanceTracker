@@ -13,7 +13,7 @@ const router = (app) => {
   app.post('/finance', mid.requiresLogin, controllers.Finance.make);
   app.post('/upgrade', mid.requiresLogin, controllers.Account.upgrade);
   app.post('/changePass', mid.requiresSecure, mid.requiresLogin,
-          controllers.Account.changePass);
+    controllers.Account.changePass);
   app.post('/recover', controllers.Account.recoverAcc);
 
   app.get('/groups', mid.requiresSecure, mid.requiresLogin, controllers.Group.groupPage);

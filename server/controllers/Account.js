@@ -1,8 +1,8 @@
+const nodemailer = require('nodemailer');
 const models = require('../models');
 
 
 // Set up nodemailer account requirements
-const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 
-const Account = models.Account;
+const { Account } = models;
 
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
@@ -94,9 +94,9 @@ const recoverAcc = (req, res) => {
           from: 'financetracker.jlt@gmail.com',
           to: doc.email,
           subject: 'Password recovery',
-          html: '<p> A password recovery has been initiated on your account.' +
-            `Your recovery password is <b>${newPass}<b>. <br></br> <br></br> <b>Make sure ` +
-            'once you log back in to change your password to something you will remember!</b></p>',
+          html: '<p> A password recovery has been initiated on your account.'
+            + `Your recovery password is <b>${newPass}<b>. <br></br> <br></br> <b>Make sure `
+            + 'once you log back in to change your password to something you will remember!</b></p>',
         };
         transporter.sendMail(mailOptions, (err3, info) => {
           if (err3) {
@@ -124,7 +124,7 @@ const login = (request, response) => {
 
   if (!username || !password) {
     return res.status(400).json({ error: 'All fields are required' });
-  };
+  }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
     if (err || !account) {
@@ -174,8 +174,8 @@ const signup = (request, response) => {
         from: 'financetracker.jlt@gmail.com',
         to: req.body.email,
         subject: 'Welcome to Finance Tracker!',
-        html: `<p> Thank you ${req.body.username} for joining!` +
-          'You can use this app to track all of your finances.</p>',
+        html: `<p> Thank you ${req.body.username} for joining!`
+          + 'You can use this app to track all of your finances.</p>',
       };
       transporter.sendMail(mailOptions, (err2, info) => {
         if (err2) {

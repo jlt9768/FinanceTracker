@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const Finance = models.Finance;
+const { Finance } = models;
 
 // Render the finance page of the session user
 const financePage = (req, res) => {
