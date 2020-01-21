@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
+const redis = require('redis');
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
 const url = require('url');
@@ -14,7 +15,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/FinanceTracker';
 
-mongoose.connect(dbURL, (err) => {
+mongoose.connect(dbURL, {useNewUrlParser: true, useUnifiedTopology: true,}, (err) => {
   if (err) {
     console.log('Could not connect to database');
     throw err;
@@ -33,6 +34,16 @@ if (process.env.REDISCLOUD_URL) {
   redisPASS = redisURL.auth.split(':')[1];
 }
 
+let redisCLIENT = redis.createClient({
+   host: redisURL.hostname,
+   port: redisURL.port,
+   password: redisPASS,
+   db:1,
+});
+
+redisCLIENT.unref();
+redisCLIENT.on('error', console.log);
+
 const router = require('./router.js');
 
 const app = express();
@@ -45,9 +56,10 @@ app.use(bodyParser.urlencoded({
 app.use(session({
   key: 'sessionid',
   store: new RedisStore({
-    host: redisURL.hostname,
-    port: redisURL.port,
-    pass: redisPASS,
+    //host: redisURL.hostname,
+    //port: redisURL.port,
+    //pass: redisPASS,
+    client:redisCLIENT,
   }),
   secret: 'Domo Arigato',
   resave: true,
