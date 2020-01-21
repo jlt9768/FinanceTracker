@@ -40,7 +40,7 @@ const redisCLIENT = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
-  db: 1,
+  db: 0,
 });
 
 redisCLIENT.unref();
