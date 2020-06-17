@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const models = require('../models');
 
+
 // Set up nodemailer account requirements
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -9,6 +10,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASS,
   },
 });
+
 
 const { Account } = models;
 
@@ -104,11 +106,13 @@ const recoverAcc = (req, res) => {
           }
         });
 
+
         return res.json({ redirect: '/' });
       });
     });
   });
 };
+
 
 // Login controller
 const login = (request, response) => {
