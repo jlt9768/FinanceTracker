@@ -16,6 +16,13 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/FinanceTracker';
 
+mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
+    console.log('Could not connect to database');
+    throw err;
+  }
+});
+
 let redisURL = {
   hostname: 'localhost',
   port: 6379,
@@ -45,13 +52,6 @@ redisCLIENT.on('connect', () => {
 
 redisCLIENT.on('error', (err) => {
   console.log(`Redis error: ${err}`);
-});
-
-mongoose.connect(dbURL, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-  if (err) {
-    console.log('Could not connect to database');
-    throw err;
-  }
 });
 
 const router = require('./router.js');
