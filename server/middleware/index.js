@@ -20,7 +20,6 @@ const requiresSecure = (req, res, next) => {
   return next();
 };
 
-
 const requiresGroup = (req, res, next) => {
   // console.dir(req.session.account.group);
   if (!req.session.account.group) {

@@ -59,7 +59,6 @@ FinanceSchema.statics.findByOwner = (ownerId, groupId, callback) => {
   return FinanceModel.find(search).select('date item type amount').exec(callback);
 };
 
-
 FinanceModel = mongoose.model('Finance', FinanceSchema);
 
 module.exports.FinanceModel = FinanceModel;
