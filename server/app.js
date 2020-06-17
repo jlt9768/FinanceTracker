@@ -34,8 +34,9 @@ if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
   const pass = redisURL.auth.split(':')[1];
   redisPASS = pass;
+  console.log(pass);
 }
-
+console.log(redisClient);
 const redisCLIENT = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
