@@ -41,6 +41,7 @@ const redisCLIENT = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
+  db: 0,
 });
 
 console.log(redisCLIENT);
