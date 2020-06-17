@@ -36,14 +36,14 @@ if (process.env.REDISCLOUD_URL) {
   redisPASS = pass;
   console.log(pass);
 }
-console.log(redisClient);
+
 const redisCLIENT = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
   db: 0,
 });
-
+console.log(redisClient);
 redisCLIENT.unref();
 redisCLIENT.on('error', console.log);
 
