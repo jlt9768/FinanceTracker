@@ -43,9 +43,10 @@ const redisCLIENT = redis.createClient({
   password: redisPASS,
   db: 0,
 });
-console.log(redisClient);
+console.log(redisCLIENT);
 redisCLIENT.unref();
 redisCLIENT.on('error', console.log);
+
 
 const router = require('./router.js');
 
