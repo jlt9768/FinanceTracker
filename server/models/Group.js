@@ -37,7 +37,6 @@ GroupSchema.statics.findByOwner = (ownerId, callback) => {
   return GroupModel.find(search).select('owner name').exec(callback);
 };
 
-
 GroupModel = mongoose.model('Group', GroupSchema);
 
 module.exports.GroupModel = GroupModel;

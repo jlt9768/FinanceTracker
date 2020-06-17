@@ -78,7 +78,6 @@ const setGroup = (request, response) => {
   const req = request;
   const res = response;
 
-
   req.session.account.group = req.body.name;
 
   return res.json({ redirect: '/finance' });
